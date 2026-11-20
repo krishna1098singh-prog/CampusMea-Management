@@ -1,0 +1,469 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="LPU Campus Meal Management Portal">
+  <title>LPU | Campus Meal Portal</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<div class="app-shell">
+
+  <aside class="sidebar" id="sidebar">
+    <div class="brand">
+      <div class="brand-logo">L</div>
+      <div>
+        <h2>Campus<span>Bite</span></h2>
+        <small>LPU MEAL PORTAL</small>
+      </div>
+    </div>
+
+    <div class="campus-label">CAMPUS MENU</div>
+
+    <nav class="nav-menu">
+      <button class="nav-link active" data-page="dashboard">
+        <span>▦</span> Dashboard
+      </button>
+      <button class="nav-link" data-page="menu">
+        <span>☷</span> Explore Meals
+      </button>
+      <button class="nav-link" data-page="bookings">
+        <span>▤</span> My Bookings
+      </button>
+    </nav>
+
+    <div class="admin-label">MANAGEMENT</div>
+
+    <nav class="nav-menu">
+      <button class="nav-link admin-only" data-page="admin">
+        <span>◫</span> Admin Dashboard
+      </button>
+      <button class="nav-link admin-only" data-page="manage">
+        <span>⚙</span> Manage Meals
+      </button>
+    </nav>
+
+    <div class="sidebar-bottom">
+      <div class="help-card">
+        <div class="help-icon">✦</div>
+        <h4>Need help?</h4>
+        <p>Contact your campus dining support.</p>
+        <a href="mailto:support@example.com">Get support ↗</a>
+      </div>
+      <div class="sidebar-footer">
+        <span class="online-dot"></span>
+        Campus portal demo
+      </div>
+    </div>
+  </aside>
+
+  <main class="main-content">
+
+    <header class="topbar">
+      <div class="topbar-left">
+        <button class="mobile-menu" id="mobileMenu">☰</button>
+        <div>
+          <div class="breadcrumb">LPU CAMPUS / <span id="breadcrumbPage">DASHBOARD</span></div>
+          <h2 id="pageTitle">Dashboard</h2>
+        </div>
+      </div>
+
+      <div class="topbar-right">
+        <div class="role-switch">
+          <label for="roleSelect">View as</label>
+          <select id="roleSelect">
+            <option value="student">Student</option>
+            <option value="admin">Admin</option>
+          </select>
+        </div>
+
+        <div class="profile">
+          <div class="avatar" id="profileAvatar">S</div>
+          <div class="profile-info">
+            <strong id="profileName">Student</strong>
+            <small id="profileRole">LPU Student</small>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <div class="page-container">
+
+      <!-- STUDENT DASHBOARD -->
+      <section class="page active" id="dashboard">
+
+        <div class="welcome-banner">
+          <div class="welcome-text">
+            <span class="eyebrow">LOVELY PROFESSIONAL UNIVERSITY</span>
+            <h1>Good food, better <span>campus life.</span></h1>
+            <p>Discover today's menu and manage your campus meal tokens.</p>
+            <button class="primary-btn" data-go="menu">Explore today's meals <span>→</span></button>
+          </div>
+          <div class="welcome-art">
+            <div class="food-circle">🍱</div>
+            <div class="floating-food food-one">🥗</div>
+            <div class="floating-food food-two">🍜</div>
+            <div class="art-caption">FRESH • TASTY • CAMPUS</div>
+          </div>
+        </div>
+
+        <div class="section-heading">
+          <div>
+            <h2>Your meal overview</h2>
+            <p>Quick summary of your campus dining activity.</p>
+          </div>
+          <span class="date-label" id="todayDate"></span>
+        </div>
+
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-top"><span>My Bookings</span><span class="stat-icon purple">▤</span></div>
+            <h2 id="studentTotal">0</h2>
+            <small>Total bookings</small>
+          </div>
+          <div class="stat-card">
+            <div class="stat-top"><span>Approved</span><span class="stat-icon green">✓</span></div>
+            <h2 id="studentApproved">0</h2>
+            <small>Confirmed tokens</small>
+          </div>
+          <div class="stat-card">
+            <div class="stat-top"><span>Pending</span><span class="stat-icon orange">◷</span></div>
+            <h2 id="studentPending">0</h2>
+            <small>Awaiting approval</small>
+          </div>
+          <div class="stat-card">
+            <div class="stat-top"><span>Completed</span><span class="stat-icon blue">★</span></div>
+            <h2 id="studentCompleted">0</h2>
+            <small>Meals collected</small>
+          </div>
+        </div>
+
+        <div class="section-heading">
+          <div>
+            <h2>Today's special menu</h2>
+            <p>Freshly prepared meals available on campus.</p>
+          </div>
+          <button class="text-btn" data-go="menu">View all meals →</button>
+        </div>
+
+        <div class="meal-grid" id="dashboardMeals"></div>
+
+        <div class="section-heading booking-heading">
+          <div>
+            <h2>Recent bookings</h2>
+            <p>Keep track of your latest meal tokens.</p>
+          </div>
+          <button class="text-btn" data-go="bookings">View all →</button>
+        </div>
+
+        <div class="table-card">
+          <div class="table-scroll">
+            <table>
+              <thead>
+                <tr>
+                  <th>Token ID</th>
+                  <th>Meal</th>
+                  <th>Date</th>
+                  <th>Amount</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody id="recentBookings"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- EXPLORE MEALS -->
+      <section class="page" id="menu">
+        <div class="page-intro">
+          <div>
+            <span class="eyebrow">CAMPUS DINING</span>
+            <h1>Explore our menu</h1>
+            <p>Find your favourite meal and reserve your token.</p>
+          </div>
+          <div class="menu-date" id="menuDate"></div>
+        </div>
+
+        <div class="menu-toolbar">
+          <div class="search-box">
+            <span>⌕</span>
+            <input type="search" id="mealSearch" placeholder="Search meals...">
+          </div>
+          <select id="mealCategory" class="filter-select">
+            <option value="all">All categories</option>
+            <option value="Breakfast">Breakfast</option>
+            <option value="Lunch">Lunch</option>
+            <option value="Snacks">Snacks</option>
+            <option value="Dinner">Dinner</option>
+          </select>
+        </div>
+
+        <div class="category-tabs" id="categoryTabs">
+          <button class="category-tab active" data-category="all">All meals</button>
+          <button class="category-tab" data-category="Breakfast">☀ Breakfast</button>
+          <button class="category-tab" data-category="Lunch">🍛 Lunch</button>
+          <button class="category-tab" data-category="Snacks">🥪 Snacks</button>
+          <button class="category-tab" data-category="Dinner">🌙 Dinner</button>
+        </div>
+
+        <div class="meal-grid full-meal-grid" id="allMeals"></div>
+      </section>
+
+      <!-- STUDENT BOOKINGS -->
+      <section class="page" id="bookings">
+        <div class="page-intro">
+          <div>
+            <span class="eyebrow">YOUR DINING ACTIVITY</span>
+            <h1>My bookings</h1>
+            <p>All your meal tokens in one place.</p>
+          </div>
+        </div>
+
+        <div class="booking-summary">
+          <div><span>Total bookings</span><strong id="bookingCount">0</strong></div>
+          <div><span>Approved</span><strong id="bookingApproved">0</strong></div>
+          <div><span>Completed</span><strong id="bookingCompleted">0</strong></div>
+        </div>
+
+        <div class="table-card">
+          <div class="table-header">
+            <div>
+              <h3>Booking history</h3>
+              <p>Check your token details and status.</p>
+            </div>
+            <select id="bookingFilter" class="filter-select">
+              <option value="all">All statuses</option>
+              <option value="Pending">Pending</option>
+              <option value="Approved">Approved</option>
+              <option value="Completed">Completed</option>
+              <option value="Rejected">Rejected</option>
+              <option value="Cancelled">Cancelled</option>
+            </select>
+          </div>
+          <div class="table-scroll">
+            <table>
+              <thead>
+                <tr>
+                  <th>Token ID</th>
+                  <th>Meal</th>
+                  <th>Category</th>
+                  <th>Date</th>
+                  <th>Amount</th>
+                  <th>Status</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="myBookings"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ADMIN DASHBOARD -->
+      <section class="page" id="admin">
+        <div class="page-intro">
+          <div>
+            <span class="eyebrow">ADMINISTRATION</span>
+            <h1>Admin dashboard</h1>
+            <p>Manage campus meals and student bookings.</p>
+          </div>
+          <button class="primary-btn" data-go="manage">+ Add new meal</button>
+        </div>
+
+        <div class="stats-grid admin-stats">
+          <div class="stat-card">
+            <div class="stat-top"><span>Total bookings</span><span class="stat-icon purple">▤</span></div>
+            <h2 id="adminTotal">0</h2>
+            <small>All time bookings</small>
+          </div>
+          <div class="stat-card">
+            <div class="stat-top"><span>Pending</span><span class="stat-icon orange">◷</span></div>
+            <h2 id="adminPending">0</h2>
+            <small>Need your attention</small>
+          </div>
+          <div class="stat-card">
+            <div class="stat-top"><span>Approved</span><span class="stat-icon green">✓</span></div>
+            <h2 id="adminApproved">0</h2>
+            <small>Confirmed bookings</small>
+          </div>
+          <div class="stat-card">
+            <div class="stat-top"><span>Menu items</span><span class="stat-icon blue">🍽</span></div>
+            <h2 id="adminMeals">0</h2>
+            <small>Available meals</small>
+          </div>
+        </div>
+
+        <div class="table-card">
+          <div class="table-header">
+            <div>
+              <h3>All student bookings</h3>
+              <p>Review and update booking requests.</p>
+            </div>
+            <div class="admin-filters">
+              <input type="search" id="adminSearch" placeholder="Search student or token...">
+              <select id="adminStatusFilter" class="filter-select">
+                <option value="all">All statuses</option>
+                <option value="Pending">Pending</option>
+                <option value="Approved">Approved</option>
+                <option value="Completed">Completed</option>
+                <option value="Rejected">Rejected</option>
+                <option value="Cancelled">Cancelled</option>
+              </select>
+            </div>
+          </div>
+          <div class="table-scroll">
+            <table>
+              <thead>
+                <tr>
+                  <th>Token ID</th>
+                  <th>Student</th>
+                  <th>Meal</th>
+                  <th>Date</th>
+                  <th>Amount</th>
+                  <th>Status</th>
+                  <th>Update status</th>
+                </tr>
+              </thead>
+              <tbody id="adminBookings"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- MANAGE MEALS -->
+      <section class="page" id="manage">
+        <div class="page-intro">
+          <div>
+            <span class="eyebrow">MENU MANAGEMENT</span>
+            <h1>Manage meals</h1>
+            <p>Add and update meals available on campus.</p>
+          </div>
+        </div>
+
+        <div class="manage-layout">
+          <div class="form-card">
+            <div class="form-heading">
+              <div>
+                <h3 id="mealFormTitle">Add a new meal</h3>
+                <p>Enter the meal details below.</p>
+              </div>
+              <span class="form-heading-icon">🍱</span>
+            </div>
+
+            <form id="mealForm">
+              <input type="hidden" id="editMealId">
+
+              <label for="mealName">Meal name</label>
+              <input type="text" id="mealName" placeholder="e.g. Paneer Rice Bowl" required maxlength="60">
+
+              <div class="form-row">
+                <div>
+                  <label for="newMealCategory">Category</label>
+                  <select id="newMealCategory" required>
+                    <option value="">Select category</option>
+                    <option>Breakfast</option>
+                    <option>Lunch</option>
+                    <option>Snacks</option>
+                    <option>Dinner</option>
+                  </select>
+                </div>
+                <div>
+                  <label for="mealPrice">Price (₹)</label>
+                  <input type="number" id="mealPrice" placeholder="80" min="1" max="10000" required>
+                </div>
+              </div>
+
+              <label for="mealTime">Serving time</label>
+              <input type="text" id="mealTime" placeholder="e.g. 12:00 PM - 2:00 PM" required maxlength="50">
+
+              <label for="mealDescription">Description</label>
+              <textarea id="mealDescription" rows="3" placeholder="Describe the meal..." maxlength="180"></textarea>
+
+              <label for="mealEmoji">Meal icon / emoji</label>
+              <input type="text" id="mealEmoji" placeholder="🍛" maxlength="8">
+
+              <div class="form-actions">
+                <button type="submit" class="primary-btn" id="mealSubmitBtn">Add meal</button>
+                <button type="button" class="secondary-btn" id="cancelEdit">Clear</button>
+              </div>
+            </form>
+          </div>
+
+          <div class="manage-list-card">
+            <div class="table-header">
+              <div>
+                <h3>Current menu</h3>
+                <p>All available meal items.</p>
+              </div>
+              <span class="count-pill" id="manageMealCount">0 meals</span>
+            </div>
+            <div id="manageMealList" class="manage-meal-list"></div>
+          </div>
+        </div>
+      </section>
+
+      <footer class="footer">
+        <span>© 2026 CampusBite · LPU Meal Portal</span>
+        <span>Made for campus dining management</span>
+      </footer>
+
+    </div>
+  </main>
+</div>
+
+<!-- BOOKING MODAL -->
+<div class="modal-overlay" id="bookingModal">
+  <div class="modal-card">
+    <button class="modal-close" id="closeBookingModal">×</button>
+    <div class="modal-icon">🍱</div>
+    <span class="eyebrow">MEAL RESERVATION</span>
+    <h2>Book your meal</h2>
+    <p class="modal-description">Confirm your details to reserve a meal token.</p>
+
+    <form id="bookingForm">
+      <input type="hidden" id="selectedMealId">
+
+      <div class="selected-meal" id="selectedMealDetails"></div>
+
+      <label for="studentName">Student name</label>
+      <input type="text" id="studentName" placeholder="Enter your full name" required maxlength="60">
+
+      <label for="studentId">Registration number</label>
+      <input type="text" id="studentId" placeholder="Enter your registration number" required maxlength="30">
+
+      <label for="bookingDate">Meal date</label>
+      <input type="date" id="bookingDate" required>
+
+      <button type="submit" class="primary-btn full-btn">Confirm booking →</button>
+    </form>
+  </div>
+</div>
+
+<!-- SUCCESS MODAL -->
+<div class="modal-overlay" id="successModal">
+  <div class="modal-card success-card">
+    <button class="modal-close" id="closeSuccessModal">×</button>
+    <div class="success-icon">✓</div>
+    <span class="eyebrow">BOOKING SUCCESSFUL</span>
+    <h2>Your meal is reserved!</h2>
+    <p>Your token has been created successfully.</p>
+    <div class="token-display">
+      <small>YOUR TOKEN ID</small>
+      <strong id="generatedToken">LPU-000001</strong>
+    </div>
+    <button class="primary-btn full-btn" id="viewMyBookings">View my bookings</button>
+  </div>
+</div>
+
+<div class="toast-container" id="toastContainer"></div>
+
+<script src="script.js"></script>
+</body>
+</html>
